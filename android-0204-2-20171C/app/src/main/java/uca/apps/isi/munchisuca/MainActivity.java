@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import uca.apps.isi.munchisuca.fragments.CheckInFragment;
 import uca.apps.isi.munchisuca.fragments.HomeFragment;
 import uca.apps.isi.munchisuca.fragments.LocationFragment;
 
@@ -99,7 +100,9 @@ public class MainActivity extends AppCompatActivity
 
             fragmentClass = LocationFragment.class;
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_chek_in) {
+
+            fragmentClass = CheckInFragment.class;
 
         } else if (id == R.id.nav_manage) {
 
