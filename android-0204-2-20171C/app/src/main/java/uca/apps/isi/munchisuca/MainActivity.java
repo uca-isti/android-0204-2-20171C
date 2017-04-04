@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = HomeFragment.class;
 
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_promotions) {
 
             fragmentClass = LocationFragment.class;
 
