@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import uca.apps.isi.munchisuca.fragments.CheckInFragment;
 import uca.apps.isi.munchisuca.fragments.HomeFragment;
 import uca.apps.isi.munchisuca.fragments.LocationFragment;
+import uca.apps.isi.munchisuca.fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -104,8 +105,8 @@ public class MainActivity extends AppCompatActivity
 
             fragmentClass = CheckInFragment.class;
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_configuracion) {
+            fragmentClass = SettingsFragment.class;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
