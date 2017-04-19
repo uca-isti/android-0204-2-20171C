@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +16,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import uca.apps.isi.munchisuca.Api.Api;
+import uca.apps.isi.munchisuca.Api.ApiInterface;
 import uca.apps.isi.munchisuca.fragments.CheckInFragment;
 import uca.apps.isi.munchisuca.fragments.HomeFragment;
-import uca.apps.isi.munchisuca.fragments.LocationFragment;
+import uca.apps.isi.munchisuca.fragments.PromotionsFragment;
 import uca.apps.isi.munchisuca.fragments.SettingsFragment;
+import uca.apps.isi.munchisuca.models.ProfileModel;
+import uca.apps.isi.munchisuca.adapters.ProfileAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private final static String TAG ="MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,42 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.getBase())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiInterface apiInterface=retrofit.create(ApiInterface.class);
+
+        Call<List<ProfileModel>> call = Api.instance().getProfile();
+
+        call.enqueue(new Callback<List<ProfileModel>>() {
+            @Override
+            public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
+                if(response!=null)
+                {
+                    for(ProfileModel profileModel:response.body())
+                    {
+                        Log.i(TAG,profileModel.getEmail());
+                        Log.i(TAG,profileModel.getPassword());
+                        Log.i(TAG,profileModel.getName());
+                        Log.i(TAG, String.valueOf(profileModel.getId()));
+                        Log.i(TAG, String.valueOf(profileModel.getId()));
+                    }
+                }
+                else
+                {
+                    Log.i(TAG, "response es nulo");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+
             }
         });
 
@@ -92,20 +141,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.ic_home_black_24dp) {
-            // Handle the camera action
+        if (id == R.id.nav_home) {
             fragmentClass = HomeFragment.class;
-
-
         } else if (id == R.id.nav_promotions) {
-
-            fragmentClass = LocationFragment.class;
-
-        } else if (id == R.id.nav_chek_in) {
-
+            fragmentClass = PromotionsFragment.class;
+        } else if (id == R.id.nav_location) {
             fragmentClass = CheckInFragment.class;
-
-        } else if (id == R.id.nav_configuracion) {
+        } else if (id == R.id.nav_configuration) {
             fragmentClass = SettingsFragment.class;
         } else if (id == R.id.nav_share) {
 
@@ -115,8 +157,6 @@ public class MainActivity extends AppCompatActivity
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
-
-
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
