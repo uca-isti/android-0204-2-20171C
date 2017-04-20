@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private final static String TAG ="MainActivity";
 
+    private TextView textView;
+    private Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,41 +57,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.getBase())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface apiInterface=retrofit.create(ApiInterface.class);
-
-        Call<List<ProfileModel>> call = Api.instance().getProfile();
-
-        call.enqueue(new Callback<List<ProfileModel>>() {
-            @Override
-            public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
-                if(response!=null)
-                {
-                    for(ProfileModel profileModel:response.body())
-                    {
-                        Log.i(TAG,profileModel.getEmail());
-                        Log.i(TAG,profileModel.getPassword());
-                        Log.i(TAG,profileModel.getName());
-                        Log.i(TAG, String.valueOf(profileModel.getId()));
-                        Log.i(TAG, String.valueOf(profileModel.getId()));
-                    }
-                }
-                else
-                {
-                    Log.i(TAG, "response es nulo");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
-
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -96,7 +66,46 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.getBase())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiInterface apiInterface=retrofit.create(ApiInterface.class);
+
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Call<List<ProfileModel>> call = Api.instance().getProfile();
+                call.enqueue(new Callback<List<ProfileModel>>(){
+
+                    @Override
+                    public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
+                        if (response != null) {
+                            for (ProfileModel profileModel : response.body()) {
+                                Log.i(TAG, profileModel.getEmail());
+                                Log.i(TAG, profileModel.getPassword());
+                                Log.i(TAG, profileModel.getName());
+                                Log.i(TAG, String.valueOf(profileModel.getProfile_id()));
+                            }
+                        } else {
+                            Log.i(TAG, "response es nulo");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
+                        t.printStackTrace();
+                        textView = (TextView) findViewById(R.id.textView);
+                        textView.setText(t.getMessage());
+                    }
+                });
+            }
+        });
+   }
 
     @Override
     public void onBackPressed() {

@@ -14,7 +14,7 @@ public class Api {
         return URL + "/";
     }
 
-    public static ApiInterface instance(){
+    public static ApiInterface instance() {
         Retrofit retrofit = new Retrofit
                 .Builder()
                 .baseUrl(Api.getBase())
