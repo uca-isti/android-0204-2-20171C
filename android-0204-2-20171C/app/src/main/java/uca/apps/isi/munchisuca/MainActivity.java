@@ -19,7 +19,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,8 +40,8 @@ import uca.apps.isi.munchisuca.adapters.ProfileAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private final static String TAG ="MainActivity";
 
+    private final static String TAG ="MainActivity";
     private TextView textView;
     private Button button;
 
@@ -56,7 +60,6 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -105,7 +108,43 @@ public class MainActivity extends AppCompatActivity
                 });
             }
         });
+        getData();
    }
+
+   public void getData(){
+       Realm realm = Realm.getDefaultInstance();
+       final RealmResults<ProfileModel> profileModelRealmResults = realm.where(ProfileModel.class).findAll();
+
+       for (ProfileModel profileModel : profileModelRealmResults) {
+           Log.i(TAG, profileModel.getEmail());
+           Log.i(TAG, profileModel.getPassword());
+           Log.i(TAG, profileModel.getName());
+           Log.i(TAG, String.valueOf(profileModel.getProfile_id()));
+
+           updateItem(profileModel);
+
+           //deleteItem(profileModel);
+       }
+   }
+
+   private void updateItem(ProfileModel profileModel){
+       Realm realm = Realm.getDefaultInstance();
+
+       String actualizar = String.format(Locale.US, getString(R.string.concat_name), profileModel.getName(), " ACTUALIZADO");;
+
+       realm.beginTransaction();
+       profileModel.setName(actualizar);
+       realm.commitTransaction();
+   }
+
+   private void deleteItem(ProfileModel profileModel){
+       Realm realm = Realm.getDefaultInstance();
+
+       realm.beginTransaction();
+       profileModel.deleteFromRealm();
+       realm.commitTransaction();
+   }
+
 
     @Override
     public void onBackPressed() {

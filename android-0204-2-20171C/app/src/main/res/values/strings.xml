@@ -16,5 +16,6 @@
     <string name="navigation_drawer_home">Home</string>
     <string name="chek_in">Chek In</string>
     <string name="config">Configuracion</string>
+    <string name="concat_name" formatted="false">NOMBRE USUARIO %s %s</string>
 
 </resources>

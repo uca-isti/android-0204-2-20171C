@@ -1,10 +1,12 @@
 package uca.apps.isi.munchisuca.models;
 
+import io.realm.RealmObject;
+
 /**
  * Created by mcama on 18/4/2017.
  */
 
-public class ProfileModel {
+public class ProfileModel extends RealmObject {
     public String email;
     public String password;
     public String name;
