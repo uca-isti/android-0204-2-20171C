@@ -5,18 +5,25 @@ package uca.apps.isi.munchisuca.models;
  */
 
 public class ProfileModel {
-    public String email;
-    public String password;
     public String name;
-    public int id;
-    public int profile_id;
+    public String username;
+    public String password;
+    public int email;
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -27,27 +34,11 @@ public class ProfileModel {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public int getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getProfile_id() {
-        return profile_id;
-    }
-
-    public void setProfile_id(int profile_id) {
-        this.profile_id = profile_id;
+    public void setEmail(int email) {
+        this.email = email;
     }
 }

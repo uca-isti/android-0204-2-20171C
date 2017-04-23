@@ -31,6 +31,7 @@ import uca.apps.isi.munchisuca.fragments.CheckInFragment;
 import uca.apps.isi.munchisuca.fragments.HomeFragment;
 import uca.apps.isi.munchisuca.fragments.PromotionsFragment;
 import uca.apps.isi.munchisuca.fragments.SettingsFragment;
+import uca.apps.isi.munchisuca.models.PlaceModel;
 import uca.apps.isi.munchisuca.models.ProfileModel;
 import uca.apps.isi.munchisuca.adapters.ProfileAdapter;
 
@@ -80,24 +81,23 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onClick(View view) {
-                Call<List<ProfileModel>> call = Api.instance().getProfile();
-                call.enqueue(new Callback<List<ProfileModel>>(){
+                Call<List<PlaceModel>> call = Api.instance().getPlaces();
+                call.enqueue(new Callback<List<PlaceModel>>(){
 
                     @Override
-                    public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
+                    public void onResponse(Call<List<PlaceModel>> call, Response<List<PlaceModel>> response) {
                         if (response != null) {
-                            for (ProfileModel profileModel : response.body()) {
-                                Log.i(TAG, profileModel.getEmail());
-                                Log.i(TAG, profileModel.getPassword());
-                                Log.i(TAG, profileModel.getName());
-                                Log.i(TAG, String.valueOf(profileModel.getProfile_id()));
+                            for (PlaceModel placeModel : response.body()) {
+                                Log.i(TAG, placeModel.getName());
+                                Log.i(TAG, placeModel.getDescription());
                             }
                         } else {
                             Log.i(TAG, "response es nulo");
                         }
                     }
+
                     @Override
-                    public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
+                    public void onFailure(Call<List<PlaceModel>> call, Throwable t) {
                         t.printStackTrace();
                         textView = (TextView) findViewById(R.id.textView);
                         textView.setText(t.getMessage());
@@ -173,8 +173,6 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -5,6 +5,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import uca.apps.isi.munchisuca.models.PlaceModel;
 import uca.apps.isi.munchisuca.models.ProfileModel;
 
 
@@ -14,8 +15,6 @@ import uca.apps.isi.munchisuca.models.ProfileModel;
  */
 
 public interface ApiInterface {
-    @GET("profiles")
-    Call<List<ProfileModel>> getProfile();
-
-
+    @GET("places")
+    Call<List<PlaceModel>> getPlaces();
 }

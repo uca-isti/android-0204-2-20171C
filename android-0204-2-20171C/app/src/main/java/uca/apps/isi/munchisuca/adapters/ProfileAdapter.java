@@ -20,19 +20,18 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     public List<ProfileModel> profileModels;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView email;
-        public TextView password;
         public TextView name;
-        public TextView id;
-        public TextView profile_id;
+        public TextView username;
+        public TextView password;
+        public TextView email;
+
 
         public ViewHolder(View view) {
             super(view);
-            email = (TextView) view.findViewById(R.id.email);
-            password = (TextView) view.findViewById(R.id.password);
             name = (TextView) view.findViewById(R.id.name);
-            id = (TextView) view.findViewById(R.id.id);
-            profile_id = (TextView) view.findViewById(R.id.profile_id);
+            username = (TextView) view.findViewById(R.id.username);
+            password = (TextView) view.findViewById(R.id.password);
+            email = (TextView) view.findViewById(R.id.email);
         }
     }
 
@@ -48,19 +47,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProfileModel profileModel = this.profileModels.get(position);
-        holder.email.setText(profileModel.getEmail());
-        holder.password.setText(profileModel.getPassword());
         holder.name.setText(profileModel.getName());
-        holder.id.setText(profileModel.getId());
-        holder.profile_id.setText(profileModel.getProfile_id());
+        holder.username.setText(profileModel.getUsername());
+        holder.password.setText(profileModel.getPassword());
+        holder.email.setText(profileModel.getEmail());
     }
 
     @Override
     public int getItemCount() {
         return this.profileModels.size();
     }
-
-
-
 
 }
