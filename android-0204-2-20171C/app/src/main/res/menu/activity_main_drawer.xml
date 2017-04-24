@@ -6,12 +6,18 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/navigation_drawer_home" />
+
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_place_black_24dp"
+            android:title="@string/locales" />
+
         <item
             android:id="@+id/nav_promotions"
             android:icon="@drawable/ic_attach_money"
             android:title="@string/promotions" />
         <item
-            android:id="@+id/nav_location"
+            android:id="@+id/nav_check_in"
             android:icon="@drawable/ic_location"
             android:title="@string/chek_in" />
         <item

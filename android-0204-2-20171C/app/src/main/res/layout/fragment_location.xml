@@ -5,9 +5,11 @@
     tools:context="uca.apps.isi.munchisuca.fragments.LocationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Busca tu lugar" />
 
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_location"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 </FrameLayout>

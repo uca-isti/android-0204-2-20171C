@@ -5,11 +5,9 @@
     tools:context="uca.apps.isi.munchisuca.fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recicler_munchies"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="match_parent"
+        android:text="Bienvenido a munchies UCA" />
 
 </FrameLayout>

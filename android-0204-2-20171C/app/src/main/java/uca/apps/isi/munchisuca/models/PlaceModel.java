@@ -1,14 +1,25 @@
 package uca.apps.isi.munchisuca.models;
 
+import io.realm.RealmObject;
+
 /**
  * Created by mcama on 18/4/2017.
  */
 
-public class PlaceModel {
+public class PlaceModel extends RealmObject {
     public String name;
     public String description;
     public String latitude;
     public String longitude;
+    public String cover;
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
     public String getName() {
         return name;

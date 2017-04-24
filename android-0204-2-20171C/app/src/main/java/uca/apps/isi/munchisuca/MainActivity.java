@@ -29,6 +29,7 @@ import uca.apps.isi.munchisuca.Api.Api;
 import uca.apps.isi.munchisuca.Api.ApiInterface;
 import uca.apps.isi.munchisuca.fragments.CheckInFragment;
 import uca.apps.isi.munchisuca.fragments.HomeFragment;
+import uca.apps.isi.munchisuca.fragments.LocationFragment;
 import uca.apps.isi.munchisuca.fragments.PromotionsFragment;
 import uca.apps.isi.munchisuca.fragments.SettingsFragment;
 import uca.apps.isi.munchisuca.models.PlaceModel;
@@ -37,10 +38,6 @@ import uca.apps.isi.munchisuca.adapters.ProfileAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private final static String TAG ="MainActivity";
-
-    private TextView textView;
-    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,44 +64,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.getBase())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiInterface apiInterface=retrofit.create(ApiInterface.class);
-
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Call<List<PlaceModel>> call = Api.instance().getPlaces();
-                call.enqueue(new Callback<List<PlaceModel>>(){
-
-                    @Override
-                    public void onResponse(Call<List<PlaceModel>> call, Response<List<PlaceModel>> response) {
-                        if (response != null) {
-                            for (PlaceModel placeModel : response.body()) {
-                                Log.i(TAG, placeModel.getName());
-                                Log.i(TAG, placeModel.getDescription());
-                            }
-                        } else {
-                            Log.i(TAG, "response es nulo");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<PlaceModel>> call, Throwable t) {
-                        t.printStackTrace();
-                        textView = (TextView) findViewById(R.id.textView);
-                        textView.setText(t.getMessage());
-                    }
-                });
-            }
-        });
    }
 
     @Override
@@ -150,20 +109,23 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            fragmentClass = HomeFragment.class;
-        } else if (id == R.id.nav_promotions) {
-            fragmentClass = PromotionsFragment.class;
-        } else if (id == R.id.nav_location) {
-            fragmentClass = CheckInFragment.class;
-        } else if (id == R.id.nav_configuration) {
-            fragmentClass = SettingsFragment.class;
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id){
+            case R.id.nav_home:
+                fragmentClass = HomeFragment.class;
+                break;
+            case R.id.nav_location:
+                fragmentClass = LocationFragment.class;
+                break;
+            case R.id.nav_promotions:
+                fragmentClass = PromotionsFragment.class;
+                break;
+            case R.id.nav_configuration:
+                fragmentClass = SettingsFragment.class;
+                break;
+            case R.id.nav_check_in:
+                fragmentClass = CheckInFragment.class;
+                break;
         }
-
         try {
             fragment = (Fragment) fragmentClass.newInstance();
             // Insert the fragment by replacing any existing fragment
