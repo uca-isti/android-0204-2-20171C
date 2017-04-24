@@ -1,5 +1,6 @@
 package uca.apps.isi.munchisuca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,6 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import uca.apps.isi.munchisuca.Api.Api;
 import uca.apps.isi.munchisuca.Api.ApiInterface;
+import uca.apps.isi.munchisuca.activites.MapsActivity;
 import uca.apps.isi.munchisuca.fragments.CheckInFragment;
 import uca.apps.isi.munchisuca.fragments.HomeFragment;
 import uca.apps.isi.munchisuca.fragments.LocationFragment;
@@ -50,8 +52,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
 

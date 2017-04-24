@@ -17,5 +17,6 @@
     <string name="chek_in">Chek In</string>
     <string name="config">Configuracion</string>
     <string name="locales">Locales</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

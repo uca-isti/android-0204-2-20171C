@@ -1,5 +1,7 @@
 package uca.apps.isi.munchisuca.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import io.realm.RealmResults;
+import uca.apps.isi.munchisuca.MainActivity;
 import uca.apps.isi.munchisuca.R;
+import uca.apps.isi.munchisuca.activites.MapsActivity;
 import uca.apps.isi.munchisuca.models.PlaceModel;
 import uca.apps.isi.munchisuca.models.ProfileModel;
 
@@ -22,8 +26,15 @@ import uca.apps.isi.munchisuca.models.ProfileModel;
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
     public RealmResults<PlaceModel> placeModelRealmResults;
+    Context context;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public PlaceAdapter(RealmResults<PlaceModel> placeModelRealmResults){
+
+        this.placeModelRealmResults = placeModelRealmResults;
+
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView name;
         public TextView description;
         public SimpleDraweeView cover;
@@ -31,13 +42,19 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
         public ViewHolder(View view) {
             super(view);
+            view.setOnClickListener(this);
             name = (TextView) view.findViewById(R.id.name);
             description = (TextView) view.findViewById(R.id.description);
             cover = (SimpleDraweeView) view.findViewById(R.id.cover);
         }
-    }
 
-    public PlaceAdapter(RealmResults<PlaceModel> placeModelRealmResults){this.placeModelRealmResults = placeModelRealmResults;}
+        @Override
+        public void onClick(View v) {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, MapsActivity.class);
+            context.startActivity(intent);
+        }
+    }
 
     @Override
     public PlaceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -1,13 +1,16 @@
 package uca.apps.isi.munchisuca.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -17,7 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uca.apps.isi.munchisuca.Api.Api;
+import uca.apps.isi.munchisuca.MainActivity;
 import uca.apps.isi.munchisuca.R;
+import uca.apps.isi.munchisuca.activites.MapsActivity;
 import uca.apps.isi.munchisuca.adapters.PlaceAdapter;
 import uca.apps.isi.munchisuca.models.PlaceModel;
 
@@ -45,8 +50,8 @@ public class LocationFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mRecyclerView.setAdapter(new PlaceAdapter(getData()));
+
         // Inflate the layout for this fragment
         return view;
     }
