@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_location"
             android:title="@string/chek_in" />
         <item
+            android:id="@+id/nav_type"
+            android:icon="@drawable/ic_type"
+            android:title="Tipos" />
+        <item
             android:id="@+id/nav_configuration"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/config" />

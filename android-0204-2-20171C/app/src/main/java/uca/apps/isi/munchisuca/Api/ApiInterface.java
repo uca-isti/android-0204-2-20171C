@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import uca.apps.isi.munchisuca.models.PlaceModel;
 import uca.apps.isi.munchisuca.models.ProfileModel;
 import uca.apps.isi.munchisuca.models.PromotionModel;
+import uca.apps.isi.munchisuca.models.TypeModel;
 
 
 /**
@@ -19,4 +20,6 @@ public interface ApiInterface {
     Call<List<PlaceModel>> getPlaces();
     @GET("promotions")
     Call<List<PromotionModel>> getPromotions();
+    @GET("types")
+    Call<List<TypeModel>> getType();
 }

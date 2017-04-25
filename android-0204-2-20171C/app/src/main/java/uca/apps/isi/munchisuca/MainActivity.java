@@ -34,6 +34,7 @@ import uca.apps.isi.munchisuca.fragments.HomeFragment;
 import uca.apps.isi.munchisuca.fragments.LocationFragment;
 import uca.apps.isi.munchisuca.fragments.PromotionsFragment;
 import uca.apps.isi.munchisuca.fragments.SettingsFragment;
+import uca.apps.isi.munchisuca.fragments.TypeFragment;
 import uca.apps.isi.munchisuca.models.PlaceModel;
 import uca.apps.isi.munchisuca.models.ProfileModel;
 import uca.apps.isi.munchisuca.adapters.ProfileAdapter;
@@ -126,6 +127,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_check_in:
                 fragmentClass = CheckInFragment.class;
+                break;
+            case R.id.nav_type:
+                fragmentClass = TypeFragment.class;
                 break;
         }
         try {
